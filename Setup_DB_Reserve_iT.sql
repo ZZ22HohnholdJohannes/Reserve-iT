@@ -1,3 +1,5 @@
+CREATE DATABASE reserve_it;
+
 CREATE TABLE person
 (
 	person_ID INT PRIMARY KEY
