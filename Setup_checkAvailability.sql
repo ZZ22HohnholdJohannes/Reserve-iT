@@ -1,6 +1,6 @@
 USE reserve_it;
 
-DROP PROCEDURE checkAvailability;
+#DROP PROCEDURE checkAvailability;
 DELIMITER //
 CREATE PROCEDURE checkAvailability(IN startDate date, IN endDate DATE, IN kategorieZimmer INT, IN artZimmer INT) 
 BEGIN
@@ -9,6 +9,7 @@ BEGIN
 
 	SELECT k.kategorie_beschreibung AS kategorie
 		  , a.art_beschreibung AS zimmerart
+		  , p.preis AS preis_pro_nacht
 		FROM hotelzimmer hz
   		JOIN buchung b ON hz.hotelzimmer_ID = b.hotelzimmer_ID
   		JOIN auftrag auf ON b.auftrag_ID = auf.auftrag_ID

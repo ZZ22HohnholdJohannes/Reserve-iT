@@ -1,4 +1,5 @@
 CREATE DATABASE reserve_it;
+USE reserve_it;
 
 CREATE TABLE person
 (
