@@ -3,16 +3,17 @@ USE reserve_it;
 
 CREATE TABLE person
 (
-	person_ID INT PRIMARY KEY
+	person_ID INT auto_increment PRIMARY KEY
 ,	vorname NVARCHAR(200)
 ,	nachname NVARCHAR(200)
 ,	geburtsdatum DATE 
 ,	istStammgast BOOL
+,  geschlecht NVARCHAR(1)
 );
 
 CREATE TABLE anschrift
 (
-	anschrift_ID INT PRIMARY KEY 
+	anschrift_ID INT auto_increment PRIMARY KEY 
 ,	strasse NVARCHAR(200)
 ,	hausnummer NVARCHAR(10)
 ,	ort NVARCHAR(200)
@@ -22,7 +23,7 @@ CREATE TABLE anschrift
 
 CREATE TABLE gast
 (
-	gast_ID INT PRIMARY KEY
+	gast_ID INT auto_increment PRIMARY KEY
 ,  anschrift_ID INT
 ,  person_ID int
 , 	FOREIGN KEY (anschrift_ID) REFERENCES anschrift(anschrift_ID)
@@ -31,7 +32,7 @@ CREATE TABLE gast
 
 CREATE TABLE auftrag
 (
-	auftrag_ID INT PRIMARY KEY 
+	auftrag_ID INT auto_increment PRIMARY KEY 
 ,  gast_ID int
 , 	FOREIGN KEY (gast_ID) REFERENCES gast(gast_ID)
 , 	startdatum DATE
@@ -40,14 +41,14 @@ CREATE TABLE auftrag
 
 CREATE TABLE hotel
 (
-	hotel_ID INT PRIMARY KEY
+	hotel_ID INT auto_increment PRIMARY KEY
 ,  anschrift_ID int
 ,	FOREIGN KEY (anschrift_ID) REFERENCES anschrift(anschrift_ID)
 );
 
 CREATE TABLE bewertung
 (
-	bewertung_ID INT PRIMARY KEY 
+	bewertung_ID INT auto_increment PRIMARY KEY 
 ,  auftrag_ID INT 
 , 	FOREIGN KEY (auftrag_ID) REFERENCES auftrag(auftrag_ID)
 , 	istFreigegeben BOOL
@@ -57,19 +58,19 @@ CREATE TABLE bewertung
 
 CREATE TABLE art
 (
-	art_ID INT PRIMARY KEY
+	art_ID INT auto_increment PRIMARY KEY
 ,	art_beschreibung NVARCHAR(200)
 );
 
 CREATE TABLE kategorie
 (
-	kategorie_ID INT PRIMARY KEY 
+	kategorie_ID INT auto_increment PRIMARY KEY 
 ,	kategorie_beschreibung NVARCHAR(200)
 );
 
 CREATE TABLE preis
 (
-	preis_ID INT PRIMARY KEY 
+	preis_ID INT auto_increment PRIMARY KEY 
 ,  kategorie_ID INT
 ,  art_ID INT 
 ,	FOREIGN KEY (kategorie_ID) REFERENCES kategorie(kategorie_ID)
@@ -79,7 +80,7 @@ CREATE TABLE preis
 
 CREATE TABLE hotelzimmer
 (
-	hotelzimmer_ID INT PRIMARY KEY 
+	hotelzimmer_ID INT auto_increment PRIMARY KEY 
 ,  art_ID INT
 ,  preis_ID INT
 ,  hotel_ID INT
@@ -93,7 +94,7 @@ CREATE TABLE hotelzimmer
 
 CREATE TABLE buchung
 (
-	buchung_ID INT PRIMARY KEY 
+	buchung_ID INT auto_increment PRIMARY KEY 
 ,  auftrag_ID INT
 ,  hotelzimmer_ID INT
 ,	FOREIGN KEY (auftrag_ID) REFERENCES auftrag(auftrag_ID)
