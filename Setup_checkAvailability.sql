@@ -18,7 +18,8 @@ BEGIN
   		JOIN kategorie k ON k.kategorie_ID = p.kategorie_ID
   		WHERE (auf.enddatum < startDate OR endDate < auf.startdatum) 
       		AND k.kategorie_ID = kategorieZimmer 
-      		AND a.art_ID = artZimmer;	      
+      		AND a.art_ID = artZimmer
+		LIMIT 1;     
 	       
 END //
 DELIMITER ;
