@@ -15,9 +15,9 @@ using System.Windows.Shapes;
 
 namespace Reserve_iT.View
 {
-	public partial class BookingView : UserControl
+	public partial class BookingSearchView : UserControl
 	{
-		public BookingView()
+		public BookingSearchView()
 		{
 			InitializeComponent();
 		}

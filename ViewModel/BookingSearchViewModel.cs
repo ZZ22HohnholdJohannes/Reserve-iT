@@ -7,7 +7,7 @@ using Reserve_iT.Essentials;
 
 namespace Reserve_iT.ViewModel
 {
-	public class BookingViewModel : NotifyObject
+	public class BookingSearchViewModel : NotifyObject
 	{
 		public string Title => "Zimmer buchen";
 		}

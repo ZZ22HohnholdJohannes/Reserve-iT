@@ -20,18 +20,18 @@ namespace Reserve_iT.ViewModel
 			}
 		}
 
-		public ICommand ShowBookingViewCommand { get; }
+		public ICommand ShowBookingSearchViewCommand { get; }
 
 		public ShellViewModel()
 		{
 			// Startansicht setzen
-			CurrentView = new MainWindowView();
-			ShowBookingViewCommand = new RelayCommand(ShowBookingView);
+			CurrentView = new DashboardView();
+			ShowBookingSearchViewCommand = new RelayCommand(ShowBookingSearchView);
 		}
 
-		private void ShowBookingView()
+		private void ShowBookingSearchView()
 		{
-			CurrentView = new BookingView();
+			CurrentView = new BookingSearchView();
 		}
 
 	}

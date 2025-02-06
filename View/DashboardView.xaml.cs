@@ -4,9 +4,9 @@ using Reserve_iT.ViewModel;
 
 namespace Reserve_iT.View
 {
-	public partial class MainWindowView : UserControl
+	public partial class DashboardView : UserControl
 	{
-		public MainWindowView()
+		public DashboardView()
 		{
 			InitializeComponent();
 		}

@@ -4,7 +4,7 @@ using Reserve_iT.View;
 
 namespace Reserve_iT.ViewModel
 {
-	public class MainWindowViewModel : NotifyObject
+	public class DashboardViewModel : NotifyObject
 	{
 		private object _currentView;
 
@@ -21,17 +21,17 @@ namespace Reserve_iT.ViewModel
 			}
 		}
 
-		public ICommand ShowBookingViewCommand { get; }
+		public ICommand ShowBookingSearchViewCommand { get; }
 
-		public MainWindowViewModel()
+		public DashboardViewModel()
 		{
-			ShowBookingViewCommand = new RelayCommand(ShowBookingView);
-			CurrentView = new MainWindowView();
+			ShowBookingSearchViewCommand = new RelayCommand(ShowBookingSearchView);
+			CurrentView = new DashboardView();
 		}
 
-		private void ShowBookingView()
+		private void ShowBookingSearchView()
 		{
-			CurrentView = new BookingView();
+			CurrentView = new BookingSearchView();
 		}
 	}
 }
