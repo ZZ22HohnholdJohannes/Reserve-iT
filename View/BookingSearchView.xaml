@@ -2,6 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>
-        <TextBlock Text="Booking Search View" />
+        <!-- Sonstige Elemente der BookingSearchView -->
+        <Button Content="Zurück" 
+                Command="{Binding DataContext.GoToDashboardCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                Width="100" Height="30" Margin="10"/>
     </Grid>
 </UserControl>

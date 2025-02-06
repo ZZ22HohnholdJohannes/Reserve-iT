@@ -7,7 +7,7 @@ namespace Reserve_iT
 	{
 		private void Application_Startup(object sender, StartupEventArgs e)
 		{
-			MainView mainWindow = new MainView();
+			MainWindowView mainWindow = new MainWindowView();
 			mainWindow.Show();
 		}
 	}

@@ -4,11 +4,11 @@ using Reserve_iT.ViewModel;
 namespace Reserve_iT.View
 {
 	/// <summary>
-	/// Interaktionslogik für MainView.xaml
+	/// Interaktionslogik für MainWindowView.xaml
 	/// </summary>
-	public partial class MainView : Window
+	public partial class MainWindowView : Window
 	{
-		public MainView()
+		public MainWindowView()
 		{
 			InitializeComponent();
 		}
