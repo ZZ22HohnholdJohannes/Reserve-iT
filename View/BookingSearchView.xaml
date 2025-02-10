@@ -1,10 +1,83 @@
 ﻿<UserControl x:Class="Reserve_iT.View.BookingSearchView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid>
-        <!-- Sonstige Elemente der BookingSearchView -->
-        <Button Content="Zurück" 
-                Command="{Binding DataContext.GoToDashboardCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
-                Width="100" Height="30" Margin="10"/>
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:Reserve_iT.ViewModel"
+             xmlns:conv="clr-namespace:Reserve_iT.Converters"
+             Margin="10">
+  <UserControl.Resources>
+    <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+  </UserControl.Resources>
+
+  <!-- Übergeordneter Grid: Zwei Zeilen -->
+  <Grid>
+    <Grid.RowDefinitions>
+      <!-- Hauptinhalt (Zeile 0) -->
+      <RowDefinition Height="*" />
+      <!-- Unterer Bereich (Zeile 1) -->
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <Grid.ColumnDefinitions>
+      <!-- Linke Spalte: Hauptinhalt -->
+      <ColumnDefinition Width="3*" />
+      <!-- Rechte Spalte: Logo und Zurück-Button -->
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+
+    <!-- Hauptinhalt (Row 0, Column 0): Optionen -->
+    <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10">
+      <!-- Zeitraum-Abschnitt -->
+      <StackPanel Orientation="Vertical" Margin="0,0,0,20">
+        <TextBlock Text="Zeitraum:" FontWeight="Bold" FontSize="16" Margin="0,0,0,5"/>
+        <StackPanel Orientation="Horizontal">
+          <!-- Anreise -->
+          <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+            <TextBlock Text="Anreise:" />
+            <DatePicker Width="120" />
+          </StackPanel>
+          <!-- Abreise -->
+          <StackPanel Orientation="Vertical">
+            <TextBlock Text="Abreise:" />
+            <DatePicker Width="120" />
+          </StackPanel>
+        </StackPanel>
+      </StackPanel>
+
+      <!-- Kategorie-Abschnitt -->
+      <StackPanel Orientation="Vertical" Margin="0,0,0,20">
+        <TextBlock Text="Kategorie:" FontWeight="Bold" FontSize="16" Margin="0,0,0,5"/>
+        <StackPanel Orientation="Horizontal">
+          <RadioButton Content="Standard" GroupName="Kategorie" IsChecked="True" Margin="0,0,10,0"/>
+          <RadioButton Content="Premium" GroupName="Kategorie" Margin="0,0,10,0"/>
+          <RadioButton Content="Luxus" GroupName="Kategorie"/>
+        </StackPanel>
+      </StackPanel>
+
+      <!-- Zimmerart-Abschnitt -->
+      <StackPanel Orientation="Vertical">
+        <TextBlock Text="Zimmerart:" FontWeight="Bold" FontSize="16" Margin="0,0,0,5"/>
+        <StackPanel Orientation="Horizontal">
+          <RadioButton Content="Einzelzimmer" GroupName="Zimmerart" IsChecked="True" Margin="0,0,10,0"/>
+          <RadioButton Content="Doppelzimmer" GroupName="Zimmerart"/>
+        </StackPanel>
+      </StackPanel>
+    </StackPanel>
+
+    <!-- Rechter Bereich (Row 0, Column 1): Logo und Zurück-Button -->
+    <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10">
+      <Image Source="pack://application:,,,/Images/Logo_Dark.png" Height="100" Width="100" Stretch="Uniform"/>
+      <Button Content="Zurück" 
+              Margin="0,10,0,0" 
+              Width="100"
+              Command="{Binding DataContext.GoToDashboardCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+    </StackPanel>
+
+    <!-- Unterer Bereich (Row 1): Button "Verfügbarkeit prüfen" rechts ausgerichtet -->
+    <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+      <Button Content="Verfügbarkeit prüfen" 
+              Width="150" Height="40" 
+              HorizontalAlignment="Right" VerticalAlignment="Center"
+              Margin="10"/>
     </Grid>
+  </Grid>
 </UserControl>
