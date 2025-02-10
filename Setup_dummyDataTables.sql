@@ -1,67 +1,91 @@
 USE reserve_it;
 
--- Gast-Person-Anschrift Daten
-INSERT INTO person (person_ID, vorname, nachname, geburtsdatum, iststammgast)
+-- Anschrift-Daten (Die IDs werden automatisch vergeben)
+INSERT INTO anschrift (strasse, hausnummer, ort, postleitzahl, land)
 VALUES
-(1, 'Max', 'Mustermann', '1985-06-15', 1),
-(2, 'Erika', 'Musterfrau', '1990-09-20', 0);
+('Hauptstraße', '10', 'Berlin', '10115', 'Deutschland'),
+('Musterweg', '5', 'Hamburg', '20095', 'Deutschland'),
+('Parkstraße', '14', 'München', '80331', 'Deutschland'),
+('Bergstraße', '7', 'Köln', '50733', 'Deutschland'),
+('Seestraße', '21', 'Berlin', '13407', 'Deutschland');
 
-INSERT INTO anschrift (anschrift_ID, straße, hausnummer, ort, postleitzahl, land)
+-- Gast-Daten (Die IDs werden automatisch vergeben)
+INSERT INTO gast (vorname, nachname, geburtsdatum, geschlecht, anschrift_ID, iststammgast)
 VALUES
-(1, 'Hauptstraße', '10', 'Berlin', '10115', 'Deutschland'),
-(2, 'Musterweg', '5', 'Hamburg', '20095', 'Deutschland');
+('Max', 'Mustermann', '1985-06-15', 'M', 1, 1),
+('Erika', 'Musterfrau', '1990-09-20', 'W', 2, 0),
+('Luca', 'Müller', '1995-03-25', 'M', 3, 0),
+('Anna', 'Schmidt', '1988-07-30', 'W', 4, 1),
+('Paul', 'Weber', '1992-11-12', 'M', 5, 0);
 
-INSERT INTO gast (gast_ID, anschrift_ID, person_ID)
+-- Hotel-Daten (Die IDs werden automatisch vergeben)
+INSERT INTO hotel (anschrift_ID)
 VALUES
-(1, 1, 1),
-(2, 2, 2);
+(1),
+(2),
+(3),
+(4),
+(5);
 
--- Hotel Daten
-INSERT INTO hotel (hotel_ID, anschrift_ID)
+-- Kategorie-Daten (Die IDs werden automatisch vergeben)
+INSERT INTO kategorie (kategorie_beschreibung)
+VALUES
+('Standard'),
+('Premium'),
+('Luxus'),
+('Business'),
+('Boutique');
+
+-- Art (Zimmertyp) Daten (Die IDs werden automatisch vergeben)
+INSERT INTO art (art_beschreibung)
+VALUES
+('Einzelzimmer'),
+('Doppelzimmer'),
+('Suite'),
+('Familienzimmer'),
+('Penthouse');
+
+-- Preis-Daten (Die IDs werden automatisch vergeben)
+INSERT INTO preis (kategorie_ID, art_ID, preis)
+VALUES
+(1, 1, 80.00),
+(2, 2, 120.00),
+(3, 3, 250.00),
+(4, 4, 180.00),
+(5, 5, 500.00);
+
+-- Hotelzimmer-Daten (Die IDs werden automatisch vergeben)
+INSERT INTO hotelzimmer (art_ID, preis_ID, hotel_ID, zimmernummer)
+VALUES
+(1, 1, 1, '101'),
+(2, 2, 1, '102'),
+(3, 3, 2, '201'),
+(4, 4, 3, '301'),
+(5, 5, 4, '401');
+
+-- Auftrag-Daten (Die IDs werden automatisch vergeben)
+INSERT INTO auftrag (gast_ID, startdatum, enddatum)
+VALUES
+(1, '2024-03-01', '2024-03-05'),
+(2, '2024-03-10', '2024-03-15'),
+(3, '2024-04-01', '2024-04-07'),
+(4, '2024-05-01', '2024-05-05'),
+(5, '2024-06-01', '2024-06-05');
+
+-- Buchung-Daten (Die IDs werden automatisch vergeben)
+INSERT INTO buchung (auftrag_ID, hotelzimmer_ID)
 VALUES
 (1, 1),
-(2, 2);
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5);
 
--- Kategorie Daten
-INSERT INTO kategorie (kategorie_ID, kategorie_beschreibung)
+-- Bewertung-Daten (Die IDs werden automatisch vergeben)
+INSERT INTO bewertung (auftrag_ID, istfreigegeben, rezension)
 VALUES
-(1, 'Standard'),
-(2, 'Premium'),
-(3, 'Luxus');
-
--- Art (Zimmertyp) Daten
-INSERT INTO art (art_ID, art_beschreibung)
-VALUES
-(1, 'Einzelzimmer'),
-(2, 'Doppelzimmer');
-
--- Preis Daten
-INSERT INTO preis (preis_ID, kategorie_ID, art_ID, preis)
-VALUES
-(1, 1, 1, 80.00),
-(2, 1, 2, 120.00);
-
--- Hotelzimmer Daten (ohne kategorie_ID)
-INSERT INTO hotelzimmer (hotelzimmer_ID, art_ID, preis_ID, hotel_ID, zimmernummer)
-VALUES
-(1, 1, 1, 1, '101'),
-(2, 2, 2, 1, '102');
-
--- Auftrag Daten
-INSERT INTO auftrag (auftrag_ID, gast_ID, startdatum, enddatum)
-VALUES
-(1, 1, '2024-03-01', '2024-03-05'),
-(2, 2, '2024-03-10', '2024-03-15');
-
--- Buchung Daten
-INSERT INTO buchung (buchung_ID, auftrag_ID, hotelzimmer_ID)
-VALUES
-(1, 1, 1),
-(2, 2, 2);
-
--- Bewertung Daten
-INSERT INTO bewertung (bewertung_ID, auftrag_ID, istfreigegeben, sternebwertung, rezension)
-VALUES
-(1, 1, 1, 5, 'Super Aufenthalt!'),
-(2, 2, 0, 4, 'Sehr gut, aber kleines Bad.');
-
+(1, 1, 'Super Aufenthalt!'),
+(2, 0, 'Sehr gut, aber kleines Bad.'),
+(3, 1, 'Alles war perfekt, sehr zufrieden!'),
+(4, 1, 'Gutes Hotel, jedoch etwas zu teuer.'),
+(5, 0, 'Nett, aber die Lage ist nicht ideal.');

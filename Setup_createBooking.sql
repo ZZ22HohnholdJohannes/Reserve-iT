@@ -16,16 +16,9 @@ CREATE PROCEDURE createBooking(IN geschlecht_in NVARCHAR(1)
 									 	,IN art_in int)
 BEGIN
 	DECLARE gast_id INT;
-	DECLARE person_id INT;
 	DECLARE anschrift_id INT;
 	DECLARE hotelzimmer_id INT;
 	DECLARE auftrag_id INT;
-	
-	SELECT p.person_id INTO person_id      						# ID von der Person die die Buchung gemacht hat holen und in Variable speichern
-	FROM person p
-	WHERE p.vorname = vorname_in 
-	AND p.nachname = nachname_in
-	AND p.geburtsdatum = geburtsdatum_in;
 	
 	SELECT a.anschrift_id INTO anschrift_id						# ID von der Anschrift der Person die die Buchung gemacht hat holen und in Variable speichern
 	FROM anschrift a
@@ -38,7 +31,9 @@ BEGIN
 	SELECT g.gast_id INTO gast_id										# Aus beiden IDs kann jetzt die Gast ID herausgefunden werden
 	FROM gast g
 	WHERE g.anschrift_ID = anschrift_id
-	AND g.person_ID = person_id;
+	AND g.vorname = vorname_in
+	AND g.nachname = nachname_in
+	AND g.geschlecht = geschlecht_in;
 	
 	SELECT hz.hotelzimmer_ID INTO hotelzimmer_id					# Für die Tabelle Buchung ist die Hotelzimmer ID noch wichtig, deswegen den Code aus Setup_checkAvailability verwenden
 	FROM hotelzimmer hz

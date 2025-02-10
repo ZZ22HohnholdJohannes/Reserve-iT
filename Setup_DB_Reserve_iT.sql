@@ -1,16 +1,6 @@
 CREATE DATABASE reserve_it;
 USE reserve_it;
 
-CREATE TABLE person
-(
-	person_ID INT auto_increment PRIMARY KEY
-,	vorname NVARCHAR(200)
-,	nachname NVARCHAR(200)
-,	geburtsdatum DATE 
-,	istStammgast BOOL
-,  geschlecht NVARCHAR(1)
-);
-
 CREATE TABLE anschrift
 (
 	anschrift_ID INT auto_increment PRIMARY KEY 
@@ -25,9 +15,12 @@ CREATE TABLE gast
 (
 	gast_ID INT auto_increment PRIMARY KEY
 ,  anschrift_ID INT
-,  person_ID int
+,	vorname NVARCHAR(200)
+,	nachname NVARCHAR(200)
+,	geburtsdatum DATE 
+,	istStammgast BOOL
+,  geschlecht NVARCHAR(1) 
 , 	FOREIGN KEY (anschrift_ID) REFERENCES anschrift(anschrift_ID)
-, 	FOREIGN KEY (person_ID) REFERENCES person(person_ID)
 );
 
 CREATE TABLE auftrag
@@ -52,7 +45,6 @@ CREATE TABLE bewertung
 ,  auftrag_ID INT 
 , 	FOREIGN KEY (auftrag_ID) REFERENCES auftrag(auftrag_ID)
 , 	istFreigegeben BOOL
-, 	sternebewertung INT
 ,  rezension NVARCHAR(500)
 );
 

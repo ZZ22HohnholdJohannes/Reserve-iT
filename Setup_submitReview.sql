@@ -1,7 +1,8 @@
 USE reserve_it;
 
 DELIMITER //
-CREATE PROCEDURE submitReview(IN bewertung_in NVARCHAR(500), IN sternebewertung_in INT, IN auftrag_id_in int)
+DROP PROCEDURE submitReview;
+CREATE PROCEDURE submitReview(IN auftrag_id_in int)
 BEGIN
 
 	DECLARE auftrag_id_vorhanden int;
@@ -12,9 +13,9 @@ BEGIN
 	
 	if auftrag_id_vorhanden = 0 THEN
 	
-		INSERT INTO bewertung(auftrag_ID, istFreigegeben, sternebewertung, rezension)
+		INSERT INTO bewertung(auftrag_ID, istFreigegeben, rezension)
 		values
-		(auftrag_id_in, 'false', sternebewertung_in, bewertung_in);
+		(auftrag_id_in, 'false', bewertung_in);
 		
 	END if;
 	
