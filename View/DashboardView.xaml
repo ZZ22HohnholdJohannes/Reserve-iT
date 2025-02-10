@@ -6,6 +6,56 @@
              DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext}">
   <UserControl.Resources>
     <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    <Style x:Key="RoundedButtonStyle" TargetType="Button">
+      <Setter Property="Background" Value="#4e4f50"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="Padding" Value="10,5"/>
+      <Setter Property="FontSize" Value="16"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="FontFamily" Value="Consolas"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Grid>
+              <Border Background="{TemplateBinding Background}" 
+                  CornerRadius="10" 
+                  BorderThickness="{TemplateBinding BorderThickness}" 
+                  BorderBrush="{TemplateBinding BorderBrush}">
+                <Border.Effect>
+                  <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="0" Opacity="0.5"/>
+                </Border.Effect>
+              </Border>
+              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+      <Style.Triggers>
+        <Trigger Property="IsMouseOver" Value="True">
+          <Setter Property="Background" Value="#746c70"/>
+        </Trigger>
+      </Style.Triggers>
+    </Style>
+    <Style x:Key="RoundedTextBoxStyle" TargetType="TextBox">
+      <Setter Property="Background" Value="White"/>
+      <Setter Property="Foreground" Value="Black"/>
+      <Setter Property="Padding" Value="8"/>
+      <Setter Property="FontSize" Value="12"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="BorderBrush" Value="#746c70"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="TextBox">
+            <Border Background="{TemplateBinding Background}" 
+                CornerRadius="5" 
+                BorderThickness="{TemplateBinding BorderThickness}" 
+                BorderBrush="{TemplateBinding BorderBrush}">
+              <ScrollViewer x:Name="PART_ContentHost"/>
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
   </UserControl.Resources>
   <Grid>
     <Grid>
@@ -21,16 +71,19 @@
         <Border.Effect>
           <DropShadowEffect Color="Black" BlurRadius="20" ShadowDepth="0" Opacity="0.5"/>
         </Border.Effect>
-        <TextBlock Text="Willkommen bei FunRest" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+        <TextBlock Text="Willkommen bei FunRest" FontSize="40" 
+                   FontWeight="Bold" HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" Margin="10"
+                   FontFamily="Consolas" Foreground="#4e4f50"/>
       </Border>
-      <Border Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="700" Height="350" CornerRadius="20">
+      <Border Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="700" Height="300" CornerRadius="20">
         <Border.Effect>
           <DropShadowEffect Color="Black" BlurRadius="20" ShadowDepth="0" Opacity="0.5"/>
         </Border.Effect>
         <Grid>
           <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="Auto"/>
           </Grid.RowDefinitions>
@@ -40,9 +93,9 @@
           </Grid.ColumnDefinitions>
 
           <Image Source="pack://application:,,,/Images/Logo_Dark.png" Height="100" Width="100"
-                 HorizontalAlignment="Right" VerticalAlignment="Top"
+                 HorizontalAlignment="Center" VerticalAlignment="Top"
                  Stretch="Uniform"
-                 Margin="10" Grid.Row="0" Grid.Column="1"/>
+                 Margin="10,10,10,0" Grid.Row="1" Grid.Column="0"/>
 
           <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                 HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -54,20 +107,28 @@
 
             <Button Content="Zimmer buchen" 
                     Command="{Binding DataContext.ShowBookingSearchViewCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
-                    Width="200" Height="80" Margin="20"/>
+                    Width="200" Height="80" Margin="20,100,20,10"
+                    Style="{StaticResource RoundedButtonStyle}"/>
 
-            <Button Content="Bewertungen" Width="200" Height="80" Margin="20" Grid.Column="2"/>
+            <Button Content="Bewertungen" 
+                    Width="200" Height="80" 
+                    Margin="20,100,20,10" Grid.Column="2" 
+                    Style="{StaticResource RoundedButtonStyle}"/>
           </Grid>
 
           <Button Content="Buchung stornieren" 
                   Visibility="{Binding IsAdminLoggedIn, Converter={StaticResource BoolToVisibilityConverter}}" 
-                  Width="150" Height="40"
+                  Width="200" Height="40"
                   HorizontalAlignment="Center" VerticalAlignment="Center"
-                  Grid.Row="2" Grid.ColumnSpan="2" Margin="5"/>
+                  Grid.Row="2" Grid.ColumnSpan="2" Margin="5,0,5,10"
+                  Style="{StaticResource RoundedButtonStyle}"/>
           <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="2" Margin="10">
-            <TextBlock Text="Administrator Passwort:" Margin="0,0,0,5" />
-            <TextBox Width="200" Text="{Binding AdminPassword, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Content="Login" Command="{Binding LoginCommand}" Width="100" />
+            <TextBlock Text="Administrator Passwort:" Margin="0,10,5,0" 
+                       FontFamily="Consolas"/>
+            <TextBox Width="200" Text="{Binding AdminPassword, UpdateSourceTrigger=PropertyChanged}" 
+                     Style="{StaticResource RoundedTextBoxStyle}"/>
+            <Button Content="Login" Command="{Binding LoginCommand}" Width="100" Margin="5,0,0,0" 
+                    Style="{StaticResource RoundedButtonStyle}"/>
           </StackPanel>
         </Grid>
       </Border>
