@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Diagnostics;
+using System.Windows.Input;
 using Reserve_iT.Essentials;
 using Reserve_iT.View;
 
@@ -59,7 +60,7 @@ namespace Reserve_iT.ViewModel
     #region Methods
     private void ShowBookingSearchView()
     {
-      CurrentView = new BookingSearchView();
+      CurrentView = new BookingSearchView() { DataContext = new BookingSearchViewModel() };
     }
 
     private void GoToDashboard()

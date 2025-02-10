@@ -31,7 +31,7 @@ namespace Reserve_iT.ViewModel
 
 		private void ShowBookingSearchView()
 		{
-			CurrentView = new BookingSearchView();
-		}
+			CurrentView = new BookingSearchView() { DataContext = new BookingSearchViewModel() };
+    }
 	}
 }

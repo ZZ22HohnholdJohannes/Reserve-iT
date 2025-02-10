@@ -2,11 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:Reserve_iT.ViewModel"
-             xmlns:conv="clr-namespace:Reserve_iT.Converters"
              Margin="10">
-  <UserControl.Resources>
-    <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-  </UserControl.Resources>
 
   <!-- Übergeordneter Grid: Zwei Zeilen -->
   <Grid>
@@ -75,6 +71,7 @@
     <!-- Unterer Bereich (Row 1): Button "Verfügbarkeit prüfen" rechts ausgerichtet -->
     <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
       <Button Content="Verfügbarkeit prüfen" 
+              Command="{Binding CheckAvailabilityCommand}"
               Width="150" Height="40" 
               HorizontalAlignment="Right" VerticalAlignment="Center"
               Margin="10"/>
