@@ -13,8 +13,8 @@ BEGIN
 		FROM hotelzimmer hz
   		JOIN buchung b ON hz.hotelzimmer_ID = b.hotelzimmer_ID
   		JOIN auftrag auf ON b.auftrag_ID = auf.auftrag_ID
-  		JOIN art a ON hz.art_ID = a.art_ID
   		JOIN preis p ON hz.preis_ID = p.preis_ID
+  		JOIN art a ON p.art_ID = a.art_ID
   		JOIN kategorie k ON k.kategorie_ID = p.kategorie_ID
   		WHERE (auf.enddatum < startDate OR endDate < auf.startdatum) 
       		AND k.kategorie_ID = kategorieZimmer 
@@ -23,4 +23,3 @@ BEGIN
 	       
 END //
 DELIMITER ;
-
