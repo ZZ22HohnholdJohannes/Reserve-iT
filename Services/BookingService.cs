@@ -9,8 +9,23 @@ namespace Reserve_iT.Services
   {
     private readonly string _connectionString = "Server=localhost;Database=reserve_it;User=root;Password=;";
 
-    public bool CheckAvailability(DateTime startDate, DateTime endDate, int kategorieId, int artId)
+    public bool CheckAvailability(DateTime startDate, DateTime endDate, bool standard, bool premium, bool luxury, bool singleRoom, bool doubleRoom)
     {
+      int category = -1;
+      if (standard)
+        category = 1;
+      else if (premium)
+        category = 2;
+      else if (luxury)
+        category = 3;
+
+      int type = -1;
+      if (singleRoom)
+        type = 1;
+      else if (doubleRoom)
+        type = 2;
+
+      DataTable dt = new DataTable();
       using (var connection = new MySqlConnection(_connectionString))
       {
         connection.Open();
@@ -18,14 +33,19 @@ namespace Reserve_iT.Services
         using (var command = new MySqlCommand("checkAvailability", connection))
         {
           command.CommandType = CommandType.StoredProcedure;
-          command.Parameters.AddWithValue("@startDate", startDate);
-          command.Parameters.AddWithValue("@endDate", endDate);
-          command.Parameters.AddWithValue("@kategorieZimmer", kategorieId);
-          command.Parameters.AddWithValue("@artZimmer", artId);
+          command.Parameters.AddWithValue("startDate", startDate);
+          command.Parameters.AddWithValue("endDate", endDate);
+          command.Parameters.AddWithValue("kategorieZimmer", category);
+          command.Parameters.AddWithValue("artZimmer", type);
 
-          using (var reader = command.ExecuteReader())
+          using (MySqlDataAdapter reader = new MySqlDataAdapter(command))
           {
-            return reader.HasRows; // Gibt zurück, ob ein passendes Zimmer gefunden wurde
+            reader.Fill(dt);
+            if (dt.Rows.Count > 0)
+            {
+              return true;
+            }
+            else return false;
           }
         }
       }

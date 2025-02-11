@@ -29,12 +29,12 @@
           <!-- Anreise -->
           <StackPanel Orientation="Vertical" Margin="0,0,10,0">
             <TextBlock Text="Anreise:" />
-            <DatePicker Width="120" />
+            <DatePicker Width="120" SelectedDate="{Binding StartDate}"/>
           </StackPanel>
           <!-- Abreise -->
           <StackPanel Orientation="Vertical">
             <TextBlock Text="Abreise:" />
-            <DatePicker Width="120" />
+            <DatePicker Width="120" SelectedDate="{Binding EndDate}"/>
           </StackPanel>
         </StackPanel>
       </StackPanel>
@@ -43,9 +43,9 @@
       <StackPanel Orientation="Vertical" Margin="0,0,0,20">
         <TextBlock Text="Kategorie:" FontWeight="Bold" FontSize="16" Margin="0,0,0,5"/>
         <StackPanel Orientation="Horizontal">
-          <RadioButton Content="Standard" GroupName="Kategorie" IsChecked="True" Margin="0,0,10,0"/>
-          <RadioButton Content="Premium" GroupName="Kategorie" Margin="0,0,10,0"/>
-          <RadioButton Content="Luxus" GroupName="Kategorie"/>
+          <RadioButton Content="Standard" GroupName="Kategorie" IsChecked="{Binding Standard}" Margin="0,0,10,0"/>
+          <RadioButton Content="Premium" GroupName="Kategorie" IsChecked="{Binding Premium}" Margin="0,0,10,0"/>
+          <RadioButton Content="Luxus" GroupName="Kategorie" IsChecked="{Binding Luxury}"/>
         </StackPanel>
       </StackPanel>
 
@@ -53,8 +53,8 @@
       <StackPanel Orientation="Vertical">
         <TextBlock Text="Zimmerart:" FontWeight="Bold" FontSize="16" Margin="0,0,0,5"/>
         <StackPanel Orientation="Horizontal">
-          <RadioButton Content="Einzelzimmer" GroupName="Zimmerart" IsChecked="True" Margin="0,0,10,0"/>
-          <RadioButton Content="Doppelzimmer" GroupName="Zimmerart"/>
+          <RadioButton Content="Einzelzimmer" GroupName="Zimmerart" IsChecked="{Binding SingleRoom}" Margin="0,0,10,0"/>
+          <RadioButton Content="Doppelzimmer" GroupName="Zimmerart" IsChecked="{Binding DoubleRoom}"/>
         </StackPanel>
       </StackPanel>
     </StackPanel>

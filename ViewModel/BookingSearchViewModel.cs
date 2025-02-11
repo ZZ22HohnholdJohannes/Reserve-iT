@@ -14,36 +14,53 @@ namespace Reserve_iT.ViewModel
     public BookingSearchViewModel()
     {
       _bookingService = new BookingService();
+      StartDate = DateTime.Now;
+      EndDate = DateTime.Now.AddDays(1);
       CreateCommands();
     }
 
-    private DateTime _startDate = DateTime.Today;
     public DateTime StartDate
     {
-      get => _startDate;
-      set => Set(_startDate);
+      get => Get<DateTime>();
+      set => Set(value);
     }
 
-    private DateTime _endDate = DateTime.Today.AddDays(1);
     public DateTime EndDate
     {
-      get => _endDate;
-      set => Set(_endDate);
+      get => Get<DateTime>();
+      set => Set(value);
     }
 
-    private int _selectedCategory;
-    public int SelectedCategory
+    public bool Standard
     {
-      get => _selectedCategory;
-      set => Set(_selectedCategory);
+      get => Get<bool>();
+      set => Set(value);
     }
 
-    private int _selectedRoomType;
-    public int SelectedRoomType
+    public bool Premium
     {
-      get => _selectedRoomType;
-      set => Set(_selectedRoomType);
+      get => Get<bool>();
+      set => Set(value);
     }
+
+    public bool Luxury
+    {
+      get => Get<bool>();
+      set => Set(value);
+    }
+
+    public bool SingleRoom
+    {
+      get => Get<bool>();
+      set => Set(value);
+    }
+
+    public bool DoubleRoom
+    {
+      get => Get<bool>();
+      set => Set(value);
+    }
+
     private void CreateCommands()
     {
       CheckAvailabilityCommand = new RelayCommand(CheckAvailability);
@@ -53,11 +70,30 @@ namespace Reserve_iT.ViewModel
 
     private void CheckAvailability()
     {
-      bool isAvailable = _bookingService.CheckAvailability(StartDate, EndDate, SelectedCategory, SelectedRoomType);
+      if (StartDate >= EndDate)
+      {
+        Debug.WriteLine("Das Anreisedatum muss vor dem Abreisedatum liegen.");
+        return;
+      }
+
+      // 2. Überprüfen, ob eine Zimmerkategorie ausgewählt wurde (Standard, Premium oder Luxus)
+      if (!(Standard || Premium || Luxury))
+      {
+        Debug.WriteLine("Bitte wählen Sie eine Zimmerkategorie (Standard, Premium oder Luxus).");
+        return;
+      }
+
+      // 3. Überprüfen, ob eine Zimmerart ausgewählt wurde (Einzelzimmer oder Doppelzimmer)
+      if (!(SingleRoom || DoubleRoom))
+      {
+        Debug.WriteLine("Bitte wählen Sie eine Zimmerart (Einzelzimmer oder Doppelzimmer).");
+        return;
+      }
+
+      bool isAvailable = _bookingService.CheckAvailability(StartDate, EndDate, Standard, Premium, Luxury, SingleRoom, DoubleRoom);
 
       if (isAvailable)
       {
-        // Weiterleitung zur nächsten View oder UI-Feedback
         Debug.WriteLine("Zimmer verfügbar!");
       }
       else
