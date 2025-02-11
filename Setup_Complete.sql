@@ -69,7 +69,7 @@ CREATE TABLE preis
 ,  art_ID INT 
 ,	FOREIGN KEY (kategorie_ID) REFERENCES kategorie(kategorie_ID)
 ,	FOREIGN KEY (art_ID) REFERENCES art(art_ID)
-,	preis INT
+,	preis_num INT
 );
 
 CREATE TABLE hotelzimmer
@@ -108,14 +108,14 @@ BEGIN
 
 	SELECT k.kategorie_beschreibung AS kategorie
 		  , a.art_beschreibung AS zimmerart
-		  , p.preis AS preis_pro_nacht
+		  , p.preis_num AS preis_pro_nacht
 		FROM hotelzimmer hz
-  		JOIN buchung b ON hz.hotelzimmer_ID = b.hotelzimmer_ID
-  		JOIN auftrag auf ON b.auftrag_ID = auf.auftrag_ID
-  		JOIN preis p ON hz.preis_ID = p.preis_ID
-  		JOIN art a ON p.art_ID = a.art_ID
-  		JOIN kategorie k ON k.kategorie_ID = p.kategorie_ID
-  		WHERE (auf.enddatum < startDate OR endDate < auf.startdatum) 
+  		left JOIN buchung b ON hz.hotelzimmer_ID = b.hotelzimmer_ID
+  		left JOIN auftrag auf ON b.auftrag_ID = auf.auftrag_ID
+  		left JOIN preis p ON hz.preis_ID = p.preis_ID
+  		left JOIN art a ON p.art_ID = a.art_ID
+  		left JOIN kategorie k ON k.kategorie_ID = p.kategorie_ID
+  		WHERE (b.buchung_ID IS NULL OR  (auf.enddatum < startDate OR endDate < auf.startdatum)) 
       		AND k.kategorie_ID = kategorieZimmer 
       		AND a.art_ID = artZimmer
 		LIMIT 1;     
@@ -258,7 +258,7 @@ VALUES
 (2, 'Doppelzimmer');
 
 -- Preis-Daten (Die IDs werden automatisch vergeben)
-INSERT INTO preis (preis_ID, kategorie_ID, art_ID, preis)
+INSERT INTO preis (preis_ID, kategorie_ID, art_ID, preis_num)
 VALUES
 (1, 1, 1, 80.00),
 (2, 1, 2, 120.00),

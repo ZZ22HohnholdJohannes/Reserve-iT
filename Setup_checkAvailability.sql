@@ -11,12 +11,12 @@ BEGIN
 		  , a.art_beschreibung AS zimmerart
 		  , p.preis AS preis_pro_nacht
 		FROM hotelzimmer hz
-  		JOIN buchung b ON hz.hotelzimmer_ID = b.hotelzimmer_ID
-  		JOIN auftrag auf ON b.auftrag_ID = auf.auftrag_ID
-  		JOIN preis p ON hz.preis_ID = p.preis_ID
-  		JOIN art a ON p.art_ID = a.art_ID
-  		JOIN kategorie k ON k.kategorie_ID = p.kategorie_ID
-  		WHERE (auf.enddatum < startDate OR endDate < auf.startdatum) 
+  		left JOIN buchung b ON hz.hotelzimmer_ID = b.hotelzimmer_ID
+  		left JOIN auftrag auf ON b.auftrag_ID = auf.auftrag_ID
+  		left JOIN preis p ON hz.preis_ID = p.preis_ID
+  		left JOIN art a ON p.art_ID = a.art_ID
+  		left JOIN kategorie k ON k.kategorie_ID = p.kategorie_ID
+  		WHERE (b.buchung_ID is null or auf.enddatum < startDate OR endDate < auf.startdatum) 
       		AND k.kategorie_ID = kategorieZimmer 
       		AND a.art_ID = artZimmer
 		LIMIT 1;     
