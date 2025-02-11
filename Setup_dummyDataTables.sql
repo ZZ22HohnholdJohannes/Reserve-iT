@@ -28,27 +28,27 @@ VALUES
 (5);
 
 -- Kategorie-Daten (Die IDs werden automatisch vergeben)
-INSERT INTO kategorie (kategorie_beschreibung)
+INSERT INTO kategorie (kategorie_ID, kategorie_beschreibung)
 VALUES
-('Standard'),
-('Premium'),
-('Luxus')
+(1, 'Standard'),
+(2, 'Premium'),
+(3, 'Luxus');
 
 -- Art (Zimmertyp) Daten (Die IDs werden automatisch vergeben)
-INSERT INTO art (art_beschreibung)
+INSERT INTO art (art_ID, art_beschreibung)
 VALUES
-('Einzelzimmer'),
-('Doppelzimmer')
+(1, 'Einzelzimmer'),
+(2, 'Doppelzimmer');
 
 -- Preis-Daten (Die IDs werden automatisch vergeben)
-INSERT INTO preis (kategorie_ID, art_ID, preis)
+INSERT INTO preis (preis_ID, kategorie_ID, art_ID, preis)
 VALUES
-(1, 1, 80.00),
-(1, 2, 120.00),
-(2, 1, 250.00),
-(2, 2, 180.00),
-(3, 1, 500.00),
-(3, 2, 600.00);
+(1, 1, 1, 80.00),
+(2, 1, 2, 120.00),
+(3, 2, 1, 250.00),
+(4, 2, 2, 180.00),
+(5, 3, 1, 500.00),
+(6, 3, 2, 600.00);
 
 -- Hotelzimmer-Daten (Die IDs werden automatisch vergeben)
 INSERT INTO hotelzimmer (preis_ID, hotel_ID, zimmernummer)
